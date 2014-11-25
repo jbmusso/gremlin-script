@@ -3,11 +3,18 @@ gremlin-script
 
 Generate Gremlin scripts with ease.
 
+Works in Node.js and the browser.
+
 ## Installation
 
+### Node.js
 ```
 $ npm install gremlin-script -S
 ```
+
+### Browsers
+
+This module works as a CommonJS, AMD module or standalone module (exported globally as `GremlinScript`).
 
 ## API
 
