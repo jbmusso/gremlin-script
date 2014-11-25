@@ -1,3 +1,4 @@
+'use strict';
 var gulp = require('gulp');
 
 var browserify = require('gulp-browserify');
@@ -6,11 +7,11 @@ var uglify = require('gulp-uglify');
 var size = require('gulp-size');
 var rename = require('gulp-rename');
 
-gulp.task('scripts', function() {
+gulp.task('build', function() {
   gulp.src('index.js')
       .pipe(browserify({
         debug: true,
-        standalone: 'gremlin'
+        standalone: 'GremlinScript'
       }))
       .pipe(rename('gremlin-script.js'))
       .pipe(gulp.dest('./build'))
@@ -47,23 +48,7 @@ gulp.task('watch', function() {
   gulp.watch('test/**/*', ['test']).on('change', onChange);
 });
 
-// Bump tasks
-gulp.task('bump-patch', function() {
-  gulp.src('./package.json').pipe(bump({ type: 'patch' })).pipe(gulp.dest('./'));
-});
-
-gulp.task('bump-minor', function() {
-  gulp.src('./package.json').pipe(bump({ type: 'minor' })).pipe(gulp.dest('./'));
-});
-
-gulp.task('bump-major', function() {
-  gulp.src('./package.json').pipe(bump({ type: 'major' })).pipe(gulp.dest('./'));
-});
-
 // Main tasks
 gulp.task('default', ['dev']);
 
 gulp.task('dev', ['test', 'watch']);
-
-gulp.task('build', ['test', 'scripts']);
-

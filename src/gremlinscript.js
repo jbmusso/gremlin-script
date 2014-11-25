@@ -16,7 +16,7 @@ function GremlinScript() {
  * @private
  * @param {String} line
  */
-GremlinScript.prototype.line = function(line) {
+GremlinScript.prototype.appendLine = function(line) {
   this.script += line + '\n';
 };
 
@@ -50,7 +50,7 @@ GremlinScript.prototype.handleString = function(statement) {
   var currentParams = [statement];
   currentParams = currentParams.concat(this.addBoundParams(_.rest(arguments)));
 
-  this.line(util.format.apply(util.format, currentParams));
+  this.appendLine(util.format.apply(util.format, currentParams));
 };
 
 /**
@@ -61,7 +61,7 @@ GremlinScript.prototype.handleString = function(statement) {
  * @return {ObjectWrapper}
  */
 GremlinScript.prototype.handleHelper = function(wrapper) {
-  this.line(wrapper.toGroovy());
+  this.appendLine(wrapper.toGroovy());
 
   return wrapper;
 };
@@ -93,13 +93,13 @@ GremlinScript.prototype.var = function(wrapper, identifier) {
  * @private
  * @param {String|ObjectWrapper} statement
  */
-GremlinScript.prototype.appendStatement = function(statement) {
+GremlinScript.prototype.line = function(statement) {
   if (arguments.length > 1) {
     // Assume query('g(%s)', 1) signature
     this.handleString.apply(this, arguments);
   } else if (_.isString(statement)) {
     // Assume query('g.v(1)') signature
-    this.line(statement);
+    this.appendLine(statement);
   } else if (statement) {
     // Assume query(g.v(1)) signature
     this.handleHelper(statement);
@@ -117,7 +117,7 @@ GremlinScript.prototype.getAppender = function() {
   var self = this;
 
   function GremlinAppender() {
-    self.appendStatement.apply(self, arguments);
+    self.line.apply(self, arguments);
 
     return self;
   }
