@@ -1,3 +1,4 @@
+'use strict';
 var GremlinScript = require('../').GremlinScript;
 var Graph = require('../').Structure.Graph;
 var Traversal = require('../').Structure.Traversal;
@@ -8,6 +9,7 @@ var gremlin;
 
 var _ = function() { return new Traversal('_()'); };
 var T = Classes.T;
+
 
 describe('traversal', function() {
   beforeEach(function() {

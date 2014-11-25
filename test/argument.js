@@ -1,3 +1,4 @@
+'use strict';
 var Argument = require('../src/arguments/argument');
 var ArrayArgument = require('../src/arguments/array');
 

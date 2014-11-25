@@ -1,3 +1,4 @@
+'use strict';
 var GremlinScript = require('../').GremlinScript;
 var Graph = require('../').Structure.Graph;
 var Classes = require('../').Classes;
@@ -5,6 +6,8 @@ var Classes = require('../').Classes;
 var Vertex = Classes.Vertex;
 var Edge = Classes.Edge;
 var g;
+var vertex;
+
 
 describe('graph', function() {
   describe('.addVertex()', function() {

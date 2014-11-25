@@ -1,3 +1,4 @@
+'use strict';
 var should = require('should');
 
 var Classes = require('../').Classes;

@@ -1,6 +1,8 @@
-var Graph = require('../').Structure.Graph;
+'use strict';
 var GremlinScript = require('../src/gremlinscript');
+var Graph = require('../').Structure.Graph;
 var Vertex = require('../').Classes.Vertex;
+
 
 describe('element', function() {
   describe('.addProperties()', function() {

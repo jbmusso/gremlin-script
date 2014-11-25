@@ -1,6 +1,8 @@
+'use strict';
 var Graph = require('../').Structure.Graph;
 var GremlinScript = require('../').GremlinScript;
 var g;
+
 
 describe('GremlinScript', function() {
   describe('line()', function() {

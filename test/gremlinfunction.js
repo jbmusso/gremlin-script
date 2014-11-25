@@ -1,6 +1,7 @@
+'use strict';
+var GremlinFunction = require('../src/functions/function');
 var grex = require('../');
 var g = grex.g;
-var GremlinFunction = require('../src/functions/function');
 
 
 describe('GremlinFunction', function() {
