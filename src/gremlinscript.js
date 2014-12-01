@@ -32,6 +32,10 @@ GremlinScript.prototype.addBoundParams = function(boundParams) {
   var identifier;
 
   _.each(boundParams, function(boundParam) {
+    if (_.isObject(boundParam)) {
+      boundParam = JSON.stringify(boundParam);
+    }
+
     identifier = 'p'+ this.paramCount++;
     this.params[identifier] = boundParam;
     currentParamNames.push(identifier);
