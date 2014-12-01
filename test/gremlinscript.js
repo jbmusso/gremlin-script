@@ -31,6 +31,15 @@ describe('GremlinScript', function() {
       gremlin.params.p0.should.equal('name');
       gremlin.params.p1.should.equal('Alice');
     });
+
+    it('should serialize an object passed as an argument', function() {
+      var gremlin = new GremlinScript();
+
+      gremlin.line('%s', { name: 'Alice', age: 28 }, 1, "foo");
+      gremlin.params.p0.should.equal('{"name":"Alice","age":28}');
+      gremlin.params.p1.should.equal(1);
+      gremlin.params.p2.should.equal('foo');
+    });
   });
 
   describe('.line(Helper)', function() {

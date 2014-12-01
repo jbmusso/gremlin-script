@@ -84,7 +84,7 @@ This library was heavily inspired by the great work started by Frank Panetta on 
 
 ## Contributors
 
-https://github.com/gulthor/grex/graphs/contributors
+https://github.com/gulthor/gremlin-script/graphs/contributors
 
 ## License
 
