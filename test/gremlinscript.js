@@ -64,13 +64,23 @@ describe('GremlinScript', function() {
   });
 
   describe('Bound parameters with helpers', function() {
-    it('should handle bound parameters', function() {
+    it('should handle a bound parameter', function() {
       var gremlin = new GremlinScript();
       var g = new Graph('g');
 
       gremlin.line(g.v(bind(1)));
       gremlin.script.should.equal('g.v(p0)\n');
       gremlin.params.p0.should.equal(1);
+    });
+
+    it('should handle multiple bound parameters', function() {
+      var gremlin = new GremlinScript();
+      var g = new Graph('g');
+
+      gremlin.line(g.V('name', bind('Alice')).has('age', bind(28)));
+      gremlin.script.should.equal("g.V('name',p0).has('age',p1)\n");
+      gremlin.params.p0.should.equal('Alice');
+      gremlin.params.p1.should.equal(28);
     });
   });
 });
