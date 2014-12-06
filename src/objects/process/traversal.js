@@ -6,6 +6,7 @@ var CollectionAccessor = require('../../functions/collectionaccessor');
 var CollectionStep = require('../../functions/steps/collectionstep');
 var PipesStep = require('../../functions/steps/pipesstep');
 var SelectStep = require('../../functions/steps/select');
+var GremlinProperty = require('../../functions/property');
 var ObjectWrapper = require('../objectwrapper');
 
 
@@ -625,7 +626,8 @@ Traversal.prototype.hasIndex = function() {
 };
 
 Traversal.prototype.key = function() {
-  this.methods.push('.'+ arguments[0]);
+  var property = new GremlinProperty(arguments[0]);
+  this.methods.push(property);
 
   return this;
 };

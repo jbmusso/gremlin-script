@@ -10,7 +10,7 @@ function ObjectWrapper(objectName) {
 ObjectWrapper.prototype.toGroovy = function(gremlinScript) {
   return this.objectName + this.methods
     .map(function(method) {
-      return method.toGroovy && method.toGroovy(gremlinScript) || method;
+      return method.toGroovy(gremlinScript);
     })
     .join('');
 };
