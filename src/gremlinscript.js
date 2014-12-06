@@ -40,6 +40,16 @@ GremlinScript.prototype.addBoundParams = function(boundParams) {
   return currentParamNames;
 };
 
+GremlinScript.prototype.addBoundParam = function(boundParam) {
+  var identifier = 'p'+ this.paramCount++;
+  this.params[identifier] = boundParam;
+
+  return {
+    identifier: identifier,
+    value: boundParam
+  };
+};
+
 /**
  * Handle a string statement using Node util.format() function.
  *
@@ -61,7 +71,7 @@ GremlinScript.prototype.handleString = function(statement) {
  * @return {ObjectWrapper}
  */
 GremlinScript.prototype.handleHelper = function(wrapper) {
-  this.appendLine(wrapper.toGroovy());
+  this.appendLine(wrapper.toGroovy(this));
 
   return wrapper;
 };

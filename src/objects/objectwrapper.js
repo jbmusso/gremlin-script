@@ -7,8 +7,12 @@ function ObjectWrapper(objectName) {
   this.properties = {};
 }
 
-ObjectWrapper.prototype.toGroovy = function() {
-  return this.objectName + this.methods.join('');
+ObjectWrapper.prototype.toGroovy = function(gremlinScript) {
+  return this.objectName + this.methods
+    .map(function(method) {
+      return method.toGroovy && method.toGroovy(gremlinScript) || method;
+    })
+    .join('');
 };
 
 ObjectWrapper.prototype.asObject = function() {

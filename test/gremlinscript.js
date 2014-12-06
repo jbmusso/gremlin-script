@@ -1,7 +1,7 @@
 'use strict';
 var Graph = require('../').Structure.Graph;
 var GremlinScript = require('../').GremlinScript;
-var g;
+var bind = require('../').bindParameter;
 
 
 describe('GremlinScript', function() {
@@ -60,6 +60,17 @@ describe('GremlinScript', function() {
 
       gremlin.var(g.v(1), 'v1');
       gremlin.script.should.equal('v1=g.v(1)\n');
+    });
+  });
+
+  describe('Bound parameters with helpers', function() {
+    it('should handle bound parameters', function() {
+      var gremlin = new GremlinScript();
+      var g = new Graph('g');
+
+      gremlin.line(g.v(bind(1)));
+      gremlin.script.should.equal('g.v(p0)\n');
+      gremlin.params.p0.should.equal(1);
     });
   });
 });

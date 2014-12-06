@@ -1,6 +1,7 @@
 'use strict';
 var _ = require('lodash');
 
+var BoundParameter = require('../boundparameter');
 var Argument = require('../arguments/argument');
 var ClosureArgument = require('../arguments/closure');
 var ObjectArgument = require('../arguments/object');
@@ -14,18 +15,22 @@ function GremlinFunction(name, args) {
   this.arguments = args;
   this.closures = [];
   this.parenthesizedArguments = [];
+  this.boundParameters = {};
   this.buildArguments();
 }
 
-GremlinFunction.prototype.toGroovy = function() {
-  return this.name + this.groovifyArguments();
+GremlinFunction.prototype.toGroovy = function(gremlinScript) {
+  return this.name + this.groovifyArguments(gremlinScript);
 };
 
-GremlinFunction.prototype.groovifyArguments = function() {
+GremlinFunction.prototype.groovifyArguments = function(gremlinScript) {
   var args = [];
 
-  // Append arguments between parentheses, if any
   var groovy = '(' + _.map(this.parenthesizedArguments, function(argument) {
+    if (argument instanceof BoundParameter) {
+      var bp = gremlinScript.addBoundParam(argument.value);
+      return bp.identifier;
+    }
     return argument.toGroovy();
   }).join(',') + ')';
 
@@ -40,7 +45,9 @@ GremlinFunction.prototype.groovifyArguments = function() {
 GremlinFunction.prototype.buildArguments = function() {
   var built;
   _.each(this.arguments, function(argument) {
-    if (this.isClosure(argument)) {
+    if (argument instanceof BoundParameter) {
+      this.parenthesizedArguments.push(argument);
+    } else if (this.isClosure(argument)) {
       built = new ClosureArgument(argument, this);
       this.closures.push(built);
     } else if (_.isArray(argument)) {
@@ -49,7 +56,7 @@ GremlinFunction.prototype.buildArguments = function() {
     } else if (this.isClass(argument)) {
       built = new ClassArgument(argument, this);
       this.parenthesizedArguments.push(built);
-    } else if (_.isObject(argument)) {
+    } else if (_.isObject(argument) && !(argument instanceof BoundParameter)) {
       built = new ObjectArgument(argument, this);
       this.parenthesizedArguments.push(built);
     } else if (_.isNumber(argument)) {
