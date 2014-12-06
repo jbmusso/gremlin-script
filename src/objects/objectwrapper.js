@@ -2,15 +2,15 @@
 
 function ObjectWrapper(objectName) {
   this.objectName = objectName;
-  this.methods = [];
+  this.chain = [];
   this.identifier = '';
   this.properties = {};
 }
 
 ObjectWrapper.prototype.toGroovy = function(gremlinScript) {
-  return this.objectName + this.methods
-    .map(function(method) {
-      return method.toGroovy(gremlinScript);
+  return this.objectName + this.chain
+    .map(function(chained) {
+      return chained.toGroovy(gremlinScript);
     })
     .join('');
 };
