@@ -82,5 +82,14 @@ describe('GremlinScript', function() {
       gremlin.params.p0.should.equal('Alice');
       gremlin.params.p1.should.equal(28);
     });
+
+    it('should handle a bound parameter with .var() method', function() {
+      var gremlin = new GremlinScript();
+      var g = new Graph('g');
+
+      gremlin.var(g.V('name', bind('Alice')), 't');
+      gremlin.script.should.equal("t=g.V('name',p0)\n");
+      gremlin.params.p0.should.equal('Alice');
+    });
   });
 });

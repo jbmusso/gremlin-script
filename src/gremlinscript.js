@@ -89,7 +89,7 @@ GremlinScript.prototype.var = function(wrapper, identifier) {
   wrapper.identifier = identifier;
   var prefix = identifier + '=';
 
-  var groovyCode = wrapper.toGroovy ? wrapper.toGroovy() : wrapper;
+  var groovyCode = wrapper.toGroovy ? wrapper.toGroovy(this) : wrapper;
 
   this.script += prefix + groovyCode + '\n';
 
