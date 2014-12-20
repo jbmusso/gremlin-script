@@ -21,7 +21,7 @@ Graph.prototype.E = function() {
   var func = new GremlinMethod('E', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -30,7 +30,7 @@ Graph.prototype.V = function() {
   var func = new GremlinMethod('V', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -39,7 +39,7 @@ Graph.prototype.e = function() {
   var func = new GremlinMethod('e', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -48,7 +48,7 @@ Graph.prototype.idx = function() {
   var func = new IdxGremlinFunction(arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -57,7 +57,7 @@ Graph.prototype.v = function() {
   var func = new GremlinMethod('v', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -67,7 +67,7 @@ Graph.prototype.createIndex = function() {
   var func = new GremlinMethod('createIndex', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -76,7 +76,7 @@ Graph.prototype.createKeyIndex = function() {
   var func = new GremlinMethod('createKeyIndex', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -85,7 +85,7 @@ Graph.prototype.getIndices = function() {
   var func = new GremlinMethod('getIndices', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -94,7 +94,7 @@ Graph.prototype.getIndexedKeys = function() {
   var func = new GremlinMethod('getIndexedKeys', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -103,7 +103,7 @@ Graph.prototype.getIndex = function() {
   var func = new GremlinMethod('getIndex', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -112,7 +112,7 @@ Graph.prototype.dropIndex = function() {
   var func = new GremlinMethod('dropIndex', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -121,7 +121,7 @@ Graph.prototype.dropKeyIndex = function() {
   var func = new GremlinMethod('dropKeyIndex', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -131,7 +131,7 @@ Graph.prototype.makeKey = function() {
   var func = new GremlinMethod('makeKey', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -140,7 +140,7 @@ Graph.prototype.clear = function() {
   var func = new GremlinMethod('clear', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -149,7 +149,7 @@ Graph.prototype.shutdown = function() {
   var func = new GremlinMethod('shutdown', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -158,7 +158,7 @@ Graph.prototype.getFeatures = function() {
   var func = new GremlinMethod('getFeatures', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -168,7 +168,7 @@ Graph.prototype.getTypes = function() {
   var func = new GremlinMethod('getTypes', arguments);
 
   var traversal = new TraversalWrapper(this.objectName);
-  traversal.methods.push(func.toGroovy());
+  traversal.chain.push(func);
 
   return traversal;
 };
@@ -194,7 +194,7 @@ Graph.prototype.addVertex = function(properties, object) {
 
   method.run();
 
-  vertex.methods.push(method.toGroovy());
+  vertex.chain.push(method);
 
   return vertex;
 };
@@ -221,7 +221,7 @@ Graph.prototype.addEdge = function(v1, v2, label, properties, object) {
 
   method.run();
 
-  edge.methods.push(method.toGroovy());
+  edge.chain.push(method);
 
   return edge;
 };

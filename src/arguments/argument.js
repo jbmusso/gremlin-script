@@ -2,10 +2,42 @@
 var _ = require('lodash');
 
 
-function Argument(value, func) {
+function Argument(value) {
   this.value = value;
-  this.func = func;
 }
+
+var stringify = function(accumulated, value, key, obj) {
+  var newVal;
+  var newKey = JSON.stringify(key);
+  var newEntry;
+
+  if (accumulated) {
+    accumulated += ',';
+  }
+
+  if (typeof value === 'undefined') {
+    value = null;
+  }
+
+  if (_.isObject(value)) {
+    newVal = '[' +  _.reduce(value, stringify, '') + ']' ;
+  } else {
+    newVal = JSON.stringify(value);
+  }
+
+  if (_.isObject(obj) && !_.isArray(obj)) {
+    newEntry = newKey + ':' + newVal;
+  } else {
+    newEntry = newVal;
+  }
+
+  return accumulated += newEntry;
+};
+
+Argument.prototype.stringify = function() {
+  var string = stringify('', this.value, null, null);
+  return string;
+};
 
 Argument.prototype.toGroovy = function() {
   return this.parse();

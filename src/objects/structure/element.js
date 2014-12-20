@@ -22,21 +22,21 @@ inherits(ElementWrapper, ObjectWrapper);
 
 ElementWrapper.prototype.getProperties = function() {
   var method = new GetPropertiesMethod();
-  this.methods.push(method.toGroovy());
+  this.chain.push(method);
 
   return method.run(this);
 };
 
 ElementWrapper.prototype.setProperty = function(key, value) {
   var method = new SetPropertyMethod({ key: key, value: value });
-  this.methods.push(method.toGroovy());
+  this.chain.push(method);
 
   return method.run(this);
 };
 
 ElementWrapper.prototype.setProperties = function(properties) {
   var method = new SetPropertiesMethod(properties);
-  this.methods.push(method.toGroovy());
+  this.chain.push(method);
 
   return method.run(this);
 };
@@ -52,7 +52,7 @@ ElementWrapper.prototype.setProperties = function(properties) {
  */
 ElementWrapper.prototype.addProperty = function(key, value) {
   var method = new AddPropertyMethod({ key: key, value: value });
-  this.methods.push(method.toGroovy());
+  this.chain.push(method);
 
   return method.run(this);
 };
@@ -67,14 +67,14 @@ ElementWrapper.prototype.addProperty = function(key, value) {
  */
 ElementWrapper.prototype.addProperties = function(properties) {
   var method = new AddPropertiesMethod(properties);
-  this.methods.push(method.toGroovy());
+  this.chain.push(method);
 
   return method.run(this);
 };
 
 ElementWrapper.prototype.remove = function() {
   var method = new GremlinMethod('remove', []);
-  this.methods.push(method.toGroovy());
+  this.chain.push(method);
 
   return this;
 };

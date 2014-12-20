@@ -40,6 +40,16 @@ GremlinScript.prototype.addBoundParams = function(boundParams) {
   return currentParamNames;
 };
 
+GremlinScript.prototype.addBoundParam = function(boundParam) {
+  var identifier = 'p'+ this.paramCount++;
+  this.params[identifier] = boundParam;
+
+  return {
+    identifier: identifier,
+    value: boundParam
+  };
+};
+
 /**
  * Handle a string statement using Node util.format() function.
  *
@@ -61,14 +71,15 @@ GremlinScript.prototype.handleString = function(statement) {
  * @return {ObjectWrapper}
  */
 GremlinScript.prototype.handleHelper = function(wrapper) {
-  this.appendLine(wrapper.toGroovy());
+  var scriptData = wrapper.getScriptAndParams(this);
+  this.appendLine(scriptData.script);
 
   return wrapper;
 };
 
 /**
  * Identify a statement within the script with the provided optional
- * identifier. Will assign an automatica identifier instead.
+ * identifier. Will assign an automatical identifier instead.
  *
  * @public
  * @param {ObjectWrapper} wrapper
@@ -79,9 +90,9 @@ GremlinScript.prototype.var = function(wrapper, identifier) {
   wrapper.identifier = identifier;
   var prefix = identifier + '=';
 
-  var groovyCode = wrapper.toGroovy ? wrapper.toGroovy() : wrapper;
+  var scriptData = wrapper.getScriptAndParams && wrapper.getScriptAndParams(this) || wrapper;
 
-  this.script += prefix + groovyCode + '\n';
+  this.line(prefix + scriptData.script);
 
   return wrapper;
 };
