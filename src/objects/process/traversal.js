@@ -4,8 +4,6 @@ var inherits = require('util').inherits;
 var GremlinStep = require('../../functions/steps/step');
 var CollectionAccessor = require('../../functions/collectionaccessor');
 var CollectionStep = require('../../functions/steps/collectionstep');
-var PipesStep = require('../../functions/steps/pipesstep');
-var SelectStep = require('../../functions/steps/select');
 var GremlinProperty = require('../../functions/property');
 var ObjectWrapper = require('../objectwrapper');
 
@@ -150,7 +148,7 @@ Traversal.prototype.scatter = function() {
 };
 
 Traversal.prototype.select = function() {
-  var step = new SelectStep(arguments);
+  var step = new GremlinStep('select', arguments);
   this.chain.push(step);
 
   return this;
@@ -188,7 +186,7 @@ Traversal.prototype.range = function() {
 };
 
 Traversal.prototype.and = function() {
-  var step = new PipesStep('and', arguments);
+  var step = new GremlinStep('and', arguments);
   this.chain.push(step);
 
   return this;
@@ -244,7 +242,7 @@ Traversal.prototype.interval = function() {
 };
 
 Traversal.prototype.or = function() {
-  var step = new PipesStep('or', arguments);
+  var step = new GremlinStep('or', arguments);
   this.chain.push(step);
 
   return this;
@@ -347,7 +345,7 @@ Traversal.prototype.tree = function() {
 
 /*** Branch ***/
 Traversal.prototype.copySplit = function() {
-  var step = new PipesStep('copySplit', arguments);
+  var step = new GremlinStep('copySplit', arguments);
   this.chain.push(step);
 
   return this;
@@ -436,7 +434,7 @@ Traversal.prototype.values = function() {
 };
 
 Traversal.prototype.put = function() {
-  var step = new PipesStep('put', arguments);
+  var step = new GremlinStep('put', arguments);
   this.chain.push(step);
 
   return this;

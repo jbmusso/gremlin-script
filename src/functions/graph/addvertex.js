@@ -3,6 +3,7 @@ var inherits = require('util').inherits;
 
 var _ = require('lodash');
 
+var Argument = require('../../arguments/object');
 var GremlinMethod = require('../method');
 
 
@@ -21,20 +22,19 @@ AddVertexMethod.prototype.run = function() {
   return this.vertex;
 };
 
-AddVertexMethod.prototype.groovifyArguments = function() {
+AddVertexMethod.prototype.generateArgumentString = function(gremlinScript) {
   var args = [];
-  var id = this.vertex._id ? this.vertex._id +',' : '';
 
   if (this.arguments && this.arguments._id) {
-    args.push(this.arguments._id);
+    args.push(new Argument(this.arguments._id));
     delete this.arguments._id;
   }
 
-  if (!_.isEmpty(this.arguments)) {
-    args.push(this.stringifyArgument(this.arguments));
-  }
+  args.push(this.arguments);
 
-  return '('+ args.join(',') + ')';
+  this.parenthesizedArguments = args;
+
+  return GremlinMethod.prototype.generateArgumentString.call(this, gremlinScript);
 };
 
 module.exports = AddVertexMethod;

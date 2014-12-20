@@ -91,5 +91,25 @@ describe('GremlinScript', function() {
       gremlin.script.should.equal("t=g.V('name',p0)\n");
       gremlin.params.p0.should.equal('Alice');
     });
+
+    it('should handle bound parameters when adding graph elements', function() {
+      var gremlin = new GremlinScript();
+      var g = new Graph('g');
+
+      var alice = { name: 'Alice', age: 30 };
+      var bob = { name: 'Bob', age: 24 };
+      var properties = { foo: 'bar' };
+
+      var v1 = gremlin.var(g.addVertex(bind(alice)), 'v1');
+      var v2 = gremlin.var(g.addVertex(bind(bob)), 'v2');
+      gremlin.line(g.addEdge(v1, v2, 'knows', bind(properties)));
+
+      gremlin.script.should.equal("v1=g.addVertex(p0)\nv2=g.addVertex(p1)\ng.addEdge(v1,v2,'knows',p2)\n");
+      gremlin.params.p0.should.equal(alice);
+      gremlin.params.p0.name.should.equal('Alice');
+      gremlin.params.p0.age.should.equal(30);
+      gremlin.params.p1.should.equal(bob);
+      gremlin.params.p2.should.equal(properties);
+    });
   });
 });

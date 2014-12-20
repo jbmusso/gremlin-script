@@ -17,7 +17,6 @@ describe('graph', function() {
         vertex = g.addVertex();
       });
 
-
       it('should return a vertex', function() {
         vertex.should.be.an.instanceof(Vertex);
       });
@@ -29,7 +28,7 @@ describe('graph', function() {
       });
 
       it('should generate Groovy script', function() {
-        var gremlin = (new GremlinScript().getAppender());
+        var gremlin = (new GremlinScript()).getAppender();
         var query = gremlin(vertex);
         query.script.should.equal('g.addVertex()\n');
       });
@@ -51,7 +50,7 @@ describe('graph', function() {
       });
 
       it('should generate Groovy script', function() {
-        var gremlin = (new GremlinScript().getAppender());
+        var gremlin = (new GremlinScript()).getAppender();
         var query = gremlin(vertex);
 
         query.script.should.equal('g.addVertex()\n');
@@ -78,7 +77,7 @@ describe('graph', function() {
       });
 
       it('should generate Groovy script', function() {
-        var gremlin = (new GremlinScript().getAppender());
+        var gremlin = (new GremlinScript()).getAppender();
         var query = gremlin(vertex);
 
         query.script.should.equal('g.addVertex(["foo":"bar"])\n');
@@ -106,7 +105,7 @@ describe('graph', function() {
       });
 
       it('should generate Groovy script', function() {
-        var gremlin = (new GremlinScript().getAppender());
+        var gremlin = (new GremlinScript()).getAppender();
         var query = gremlin(vertex);
 
         query.script.should.equal('g.addVertex(1,["foo":"bar"])\n');
@@ -137,7 +136,7 @@ describe('graph', function() {
         var gremlin = (new GremlinScript()).getAppender();
         var query = gremlin(edge);
 
-        query.script.should.equal('g.addEdge(1,2,"knows")\n');
+        query.script.should.equal("g.addEdge(1,2,'knows')\n");
       });
     });
 
@@ -170,7 +169,7 @@ describe('graph', function() {
         var gremlin = (new GremlinScript()).getAppender();
         var query = gremlin(edge);
 
-        query.script.should.equal('g.addEdge(20,30,"knows",["since":"now"])\n');
+        query.script.should.equal("g.addEdge(20,30,'knows',[\"since\":\"now\"])\n");
       });
     });
 

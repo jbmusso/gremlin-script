@@ -33,16 +33,16 @@ AddEdgeMethod.prototype.run = function(object) {
   return this.edge;
 };
 
-AddEdgeMethod.prototype.groovifyArguments = function() {
+AddEdgeMethod.prototype.generateArgumentString = function(gremlinScript) {
   var id = this.edge._id ? this.edge._id + ',' : '';
 
   var properties = this.arguments.properties;
-  var propArgument = !_.isEmpty(properties) ? ','+ this.stringifyArgument(this.arguments.properties) : '';
+  var propArgument = _.isEmpty(properties) ? '': ',' + this.processArgument(this.arguments.properties, gremlinScript);
 
   var _outV = this.edge._outV.identifier || this.arguments.v1;
   var _inV = this.edge._inV.identifier || this.arguments.v2;
 
-  return '('+ id + _outV +','+ _inV +',"'+ this.edge._label +'"'+ propArgument + ')';
+  return '('+ id + _outV +','+ _inV +',\''+ this.edge._label +'\''+ propArgument + ')';
 };
 
 module.exports = AddEdgeMethod;

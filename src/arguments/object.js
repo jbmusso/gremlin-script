@@ -10,7 +10,7 @@ function ObjectArgument() {
 inherits(ObjectArgument, Argument);
 
 ObjectArgument.prototype.toGroovy = function() {
-  return JSON.stringify(this.value).replace('{', '[').replace('}', ']');
+  return this.stringify();
 };
 
 module.exports = ObjectArgument;
