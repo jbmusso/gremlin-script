@@ -340,7 +340,10 @@ Traversal.prototype.table = function() {
 };
 
 Traversal.prototype.tree = function() {
-  throw new Error('Not implemented');
+  var step = new GremlinStep('tree', arguments);
+  this.chain.push(step);
+
+  return this;
 };
 
 /*** Branch ***/
